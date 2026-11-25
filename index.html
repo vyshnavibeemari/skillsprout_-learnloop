@@ -1,0 +1,511 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SkillSprout: LearnLoop — Intelligent Academic Roadmap</title>
+    <meta
+      name="description"
+      content="Intelligent prerequisite-aware academic roadmap and learning management platform for engineering students."
+    />
+    <meta property="og:title" content="SkillSprout: LearnLoop" />
+    <meta
+      property="og:description"
+      content="Intelligent prerequisite-aware academic roadmap and learning management platform for engineering students."
+    />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./style.css" />
+    <script defer src="./script.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <!-- Student Diagnostic Intake / Onboarding Screen -->
+    <div id="onboarding-view" class="onboarding-shell" hidden>
+      <header class="onboarding-header">
+        <div class="onboarding-header-inner">
+          <div class="brand-lockup">
+            <svg class="brand-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path
+                d="M12 20V10M12 10C12 6.5 15 4 19 4C19 8 16.5 10 12 10ZM12 13C12 9.5 9 7 5 7C5 11 7.5 13 12 13Z"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <span class="brand-wordmark">SkillSprout</span>
+          </div>
+          <nav class="onboarding-nav" aria-label="Onboarding resources">
+            <button type="button" class="text-link-btn" id="btn-onboarding-demo">
+              Load Sample First-Year CSE Profile
+            </button>
+          </nav>
+        </div>
+      </header>
+
+      <main class="onboarding-main">
+        <section class="onboarding-intro" aria-labelledby="onboarding-title">
+          <p class="eyebrow-text">LearnLoop Academic Planner</p>
+          <h1 id="onboarding-title" class="onboarding-headline">
+            Plan your engineering curriculum without prerequisite guesswork.
+          </h1>
+          <p class="onboarding-lead">
+            Tell us your engineering branch, current semester, coding background, and target career
+            pathway. SkillSprout builds a cycle-checked, topological learning sequence tailored to
+            what you are ready to take next.
+          </p>
+
+          <dl class="onboarding-pillars">
+            <div class="pillar-item">
+              <dt>Prerequisite-Validated Sequencing</dt>
+              <dd>
+                Every semester plan is computed via Kahn's topological sorting so you never enroll
+                in advanced coursework before completing foundations.
+              </dd>
+            </div>
+            <div class="pillar-item">
+              <dt>Beginner Cold-Start Support</dt>
+              <dd>
+                Starting with zero coding experience automatically prioritizes foundational logic,
+                programming basics, and essential mathematics first.
+              </dd>
+            </div>
+            <div class="pillar-item">
+              <dt>Module-Level Credit Tracking</dt>
+              <dd>
+                Track module completion with live progress rings, weekly study workload checks, and
+                advisor-ready PDF roadmap exports.
+              </dd>
+            </div>
+          </dl>
+        </section>
+
+        <section class="onboarding-card" aria-labelledby="intake-form-heading">
+          <div class="onboarding-card-header">
+            <h2 id="intake-form-heading">Student Diagnostic Intake</h2>
+            <p>Complete all fields below to generate your personalized roadmap.</p>
+          </div>
+
+          <form id="onboarding-form" class="diagnostic-form" novalidate>
+            <div class="form-grid">
+              <div class="form-field form-field-full">
+                <label for="onboard-name">Student Full Name <span class="required-mark">*</span></label>
+                <input
+                  id="onboard-name"
+                  name="name"
+                  type="text"
+                  placeholder="e.g., Aarav Sharma"
+                  autocomplete="name"
+                  required
+                />
+                <span class="field-error" id="err-onboard-name"></span>
+              </div>
+
+              <div class="form-field">
+                <label for="onboard-branch">Engineering Branch <span class="required-mark">*</span></label>
+                <select id="onboard-branch" name="branch" required>
+                  <option value="">Select branch</option>
+                  <option value="Computer Science Engineering (CSE)">Computer Science Engineering (CSE)</option>
+                  <option value="CSE – Artificial Intelligence and Machine Learning">CSE – Artificial Intelligence and Machine Learning</option>
+                  <option value="Information Technology (IT)">Information Technology (IT)</option>
+                  <option value="Electronics and Communication Engineering (ECE)">Electronics and Communication Engineering (ECE)</option>
+                  <option value="Electrical and Electronics Engineering (EEE)">Electrical and Electronics Engineering (EEE)</option>
+                  <option value="Mechanical Engineering">Mechanical Engineering</option>
+                  <option value="Civil Engineering">Civil Engineering</option>
+                  <option value="Other">Other</option>
+                </select>
+                <span class="field-error" id="err-onboard-branch"></span>
+              </div>
+
+              <div class="form-field">
+                <label for="onboard-semester">Current Semester <span class="required-mark">*</span></label>
+                <select id="onboard-semester" name="semester" required>
+                  <option value="">Select semester</option>
+                  <option value="1">Semester 1</option>
+                  <option value="2">Semester 2</option>
+                  <option value="3">Semester 3</option>
+                  <option value="4">Semester 4</option>
+                  <option value="5">Semester 5</option>
+                  <option value="6">Semester 6</option>
+                  <option value="7">Semester 7</option>
+                  <option value="8">Semester 8</option>
+                </select>
+                <span class="field-error" id="err-onboard-semester"></span>
+              </div>
+
+              <div class="form-field">
+                <label for="onboard-experience">Programming Experience <span class="required-mark">*</span></label>
+                <select id="onboard-experience" name="programmingExperience" required>
+                  <option value="">Select experience level</option>
+                  <option value="Complete beginner">Complete beginner</option>
+                  <option value="Basic programming knowledge">Basic programming knowledge</option>
+                  <option value="Intermediate programming knowledge">Intermediate programming knowledge</option>
+                  <option value="Advanced programming knowledge">Advanced programming knowledge</option>
+                </select>
+                <span class="field-error" id="err-onboard-experience"></span>
+              </div>
+
+              <div class="form-field">
+                <label for="onboard-pathway">Target Career Pathway <span class="required-mark">*</span></label>
+                <select id="onboard-pathway" name="careerPathway" required>
+                  <option value="">Select target pathway</option>
+                  <option value="Full-Stack Web Development">Full-Stack Web Development</option>
+                  <option value="Artificial Intelligence and Machine Learning">Artificial Intelligence and Machine Learning</option>
+                  <option value="Data Science">Data Science</option>
+                  <option value="Cybersecurity">Cybersecurity</option>
+                  <option value="Cloud Computing">Cloud Computing</option>
+                  <option value="Software Development">Software Development</option>
+                  <option value="Mobile Application Development">Mobile Application Development</option>
+                </select>
+                <span class="field-error" id="err-onboard-pathway"></span>
+              </div>
+
+              <div class="form-field form-field-full">
+                <span class="field-label">Programming Languages Known <span class="required-mark">*</span></span>
+                <div class="checkbox-cluster" id="onboard-languages-group" role="group" aria-label="Programming languages known">
+                  <label class="check-tile"><input type="checkbox" name="knownLanguages" value="None" /><span>None</span></label>
+                  <label class="check-tile"><input type="checkbox" name="knownLanguages" value="C" /><span>C</span></label>
+                  <label class="check-tile"><input type="checkbox" name="knownLanguages" value="C++" /><span>C++</span></label>
+                  <label class="check-tile"><input type="checkbox" name="knownLanguages" value="Python" /><span>Python</span></label>
+                  <label class="check-tile"><input type="checkbox" name="knownLanguages" value="Java" /><span>Java</span></label>
+                  <label class="check-tile"><input type="checkbox" name="knownLanguages" value="JavaScript" /><span>JavaScript</span></label>
+                  <label class="check-tile"><input type="checkbox" name="knownLanguages" value="Other" /><span>Other</span></label>
+                </div>
+                <span class="field-error" id="err-onboard-languages"></span>
+              </div>
+
+              <div class="form-field form-field-full">
+                <label for="onboard-hours">Weekly Available Study Hours <span class="required-mark">*</span></label>
+                <div class="range-input-row">
+                  <input
+                    id="onboard-hours"
+                    name="weeklyStudyHours"
+                    type="number"
+                    min="4"
+                    max="60"
+                    value="16"
+                    required
+                  />
+                  <span class="input-unit">hours / week (outside lectures)</span>
+                </div>
+                <span class="field-error" id="err-onboard-hours"></span>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary btn-lg">
+                Generate My Learning Roadmap
+              </button>
+            </div>
+          </form>
+        </section>
+      </main>
+    </div>
+
+    <!-- Main Dashboard Application Shell -->
+    <div id="app-shell" class="app-shell" hidden>
+      <div id="sidebar-backdrop" class="sidebar-backdrop" hidden></div>
+
+      <aside id="sidebar" class="sidebar" aria-label="Primary navigation">
+        <div class="sidebar-brand">
+          <div class="brand-lockup">
+            <svg class="brand-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path
+                d="M12 20V10M12 10C12 6.5 15 4 19 4C19 8 16.5 10 12 10ZM12 13C12 9.5 9 7 5 7C5 11 7.5 13 12 13Z"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <div>
+              <span class="brand-wordmark">SkillSprout</span>
+              <span class="brand-subword">LearnLoop Platform</span>
+            </div>
+          </div>
+          <button
+            type="button"
+            id="btn-close-sidebar"
+            class="icon-btn mobile-only"
+            aria-label="Close navigation menu"
+          >
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+            </svg>
+          </button>
+        </div>
+
+        <nav class="sidebar-nav" id="sidebar-nav">
+          <div class="nav-group">
+            <p class="nav-group-title">Academic Workspace</p>
+            <button type="button" class="nav-item active" data-view="overview">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <rect x="3" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.75" />
+                <rect x="14" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.75" />
+                <rect x="3" y="14" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.75" />
+                <rect x="14" y="14" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.75" />
+              </svg>
+              <span>Overview</span>
+            </button>
+            <button type="button" class="nav-item" data-view="roadmap">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4 6H12M12 6C13.6569 6 15 7.34315 15 9C15 10.6569 13.6569 12 12 12H8C6.34315 12 5 13.3431 5 15C5 16.6569 6.34315 18 8 18H20M20 18L17 15M20 18L17 21" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              <span>My Learning Roadmap</span>
+            </button>
+            <button type="button" class="nav-item" data-view="catalog">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" />
+                <path d="M6.5 2H20V22H6.5A2.5 2.5 0 0 1 4 19.5V4.5A2.5 2.5 0 0 1 6.5 2Z" stroke="currentColor" stroke-width="1.75" stroke-linejoin="round" />
+              </svg>
+              <span>Course Catalog</span>
+            </button>
+            <button type="button" class="nav-item" data-view="enrollments">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M9 11L12 14L22 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M21 12V19A2 2 0 0 1 19 21H5A2 2 0 0 1 3 19V5A2 2 0 0 1 5 3H16" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" />
+              </svg>
+              <span>My Enrollments</span>
+            </button>
+            <button type="button" class="nav-item" data-view="progress">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 20V10M18 20V4M6 20V14" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" />
+              </svg>
+              <span>Progress Tracker</span>
+            </button>
+          </div>
+
+          <div class="nav-group">
+            <p class="nav-group-title">Planning Tools</p>
+            <button type="button" class="nav-item" data-view="estimator">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.75" />
+                <path d="M12 7V12L15.5 14" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" />
+              </svg>
+              <span>Study Hours Estimator</span>
+            </button>
+            <button type="button" class="nav-item" data-view="peers">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M16 21V19A4 4 0 0 0 12 15H6A4 4 0 0 0 2 19V21" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" />
+                <circle cx="9" cy="7" r="4" stroke="currentColor" stroke-width="1.75" />
+                <path d="M22 21V19A4 4 0 0 0 19 15.13M16 3.13A4 4 0 0 1 16 10.87" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" />
+              </svg>
+              <span>Peer Study Groups</span>
+            </button>
+            <button type="button" class="nav-item" data-view="graph">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <circle cx="5" cy="12" r="2.5" stroke="currentColor" stroke-width="1.75" />
+                <circle cx="12" cy="6" r="2.5" stroke="currentColor" stroke-width="1.75" />
+                <circle cx="12" cy="18" r="2.5" stroke="currentColor" stroke-width="1.75" />
+                <circle cx="19" cy="12" r="2.5" stroke="currentColor" stroke-width="1.75" />
+                <path d="M7.2 10.6L9.8 7.4M7.2 13.4L9.8 16.6M14.2 7.4L16.8 10.6M14.2 16.6L16.8 13.4" stroke="currentColor" stroke-width="1.6" />
+              </svg>
+              <span>Prerequisite Graph</span>
+            </button>
+          </div>
+
+          <div class="nav-group">
+            <p class="nav-group-title">Student Record</p>
+            <button type="button" class="nav-item" data-view="profile">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.75" />
+                <path d="M4 20C4 16.6863 7.58172 14 12 14C16.4183 14 20 16.6863 20 20" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" />
+              </svg>
+              <span>My Profile</span>
+            </button>
+            <button type="button" class="nav-item" data-view="export">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M14 2H6A2 2 0 0 0 4 4V20A2 2 0 0 0 6 22H18A2 2 0 0 0 20 20V8L14 2Z" stroke="currentColor" stroke-width="1.75" stroke-linejoin="round" />
+                <path d="M14 2V8H20M12 18V12M9 15L12 18L15 15" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              <span>Export Roadmap</span>
+            </button>
+          </div>
+        </nav>
+
+        <div class="sidebar-footer">
+          <button type="button" class="sidebar-profile-btn" id="btn-sidebar-profile">
+            <span class="avatar-initials" id="sidebar-avatar">AS</span>
+            <span class="sidebar-profile-meta">
+              <span class="sidebar-profile-name" id="sidebar-student-name">Student</span>
+              <span class="sidebar-profile-sub" id="sidebar-student-meta">Sem 1 · CSE</span>
+            </span>
+          </button>
+        </div>
+      </aside>
+
+      <div class="workspace-column">
+        <header id="topbar" class="topbar">
+          <div class="topbar-left">
+            <button
+              type="button"
+              id="btn-open-sidebar"
+              class="icon-btn mobile-only"
+              aria-label="Open navigation menu"
+            >
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M3 6H21M3 12H21M3 18H21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+              </svg>
+            </button>
+            <div class="breadcrumb-wrap">
+              <span class="breadcrumb-root">SkillSprout</span>
+              <span class="breadcrumb-sep" aria-hidden="true">/</span>
+              <h1 id="topbar-title" class="topbar-title">Overview</h1>
+            </div>
+          </div>
+
+          <div class="topbar-right">
+            <button type="button" id="topbar-primary-action" class="btn btn-primary btn-sm">
+              Explore Roadmap
+            </button>
+          </div>
+        </header>
+
+        <div id="cycle-alert-banner" class="alert-banner alert-danger" role="alert" hidden>
+          <div class="alert-banner-content">
+            <strong>Circular Prerequisite Dependency Detected:</strong>
+            <span id="cycle-alert-message"></span>
+          </div>
+          <button type="button" id="btn-restore-dag" class="btn btn-sm btn-secondary">
+            Restore Valid Curriculum
+          </button>
+        </div>
+
+        <main id="main-content" class="main-content">
+          <!-- 1. Overview -->
+          <section id="view-overview" class="view-section" aria-labelledby="topbar-title">
+            <div id="overview-container"></div>
+          </section>
+
+          <!-- 2. My Learning Roadmap -->
+          <section id="view-roadmap" class="view-section" hidden>
+            <div id="roadmap-container"></div>
+          </section>
+
+          <!-- 3. Course Catalog -->
+          <section id="view-catalog" class="view-section" hidden>
+            <div id="catalog-container"></div>
+          </section>
+
+          <!-- 4. My Enrollments -->
+          <section id="view-enrollments" class="view-section" hidden>
+            <div id="enrollments-container"></div>
+          </section>
+
+          <!-- 5. Progress Tracker -->
+          <section id="view-progress" class="view-section" hidden>
+            <div id="progress-container"></div>
+          </section>
+
+          <!-- 6. Study Hours Estimator -->
+          <section id="view-estimator" class="view-section" hidden>
+            <div id="estimator-container"></div>
+          </section>
+
+          <!-- 7. Peer Study Groups -->
+          <section id="view-peers" class="view-section" hidden>
+            <div id="peers-container"></div>
+          </section>
+
+          <!-- 8. Prerequisite Graph -->
+          <section id="view-graph" class="view-section" hidden>
+            <div id="graph-container"></div>
+          </section>
+
+          <!-- 9. My Profile -->
+          <section id="view-profile" class="view-section" hidden>
+            <div id="profile-container"></div>
+          </section>
+
+          <!-- 10. Export Roadmap -->
+          <section id="view-export" class="view-section" hidden>
+            <div id="export-container"></div>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <!-- Course Detail Modal -->
+    <div id="course-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="course-modal-title" hidden>
+      <div class="modal-panel modal-panel-lg">
+        <div class="modal-header">
+          <div>
+            <p class="modal-kicker" id="course-modal-kicker">CS101 · 4 Credits</p>
+            <h2 id="course-modal-title" class="modal-title">Course Title</h2>
+          </div>
+          <button type="button" id="btn-close-course-modal" class="icon-btn" aria-label="Close course details">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+            </svg>
+          </button>
+        </div>
+        <div id="course-modal-body" class="modal-body"></div>
+        <div id="course-modal-footer" class="modal-footer"></div>
+      </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirm-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="confirm-modal-title" hidden>
+      <div class="modal-panel modal-panel-sm">
+        <div class="modal-header">
+          <h2 id="confirm-modal-title" class="modal-title">Confirm Action</h2>
+          <button type="button" id="btn-close-confirm-modal" class="icon-btn" aria-label="Cancel">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+            </svg>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p id="confirm-modal-message" class="confirm-text"></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="btn-confirm-cancel" class="btn btn-secondary">Cancel</button>
+          <button type="button" id="btn-confirm-accept" class="btn btn-danger">Confirm</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Create Study Group Modal -->
+    <div id="group-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="group-modal-title" hidden>
+      <div class="modal-panel modal-panel-sm">
+        <div class="modal-header">
+          <h2 id="group-modal-title" class="modal-title">Create Sample Study Group</h2>
+          <button type="button" id="btn-close-group-modal" class="icon-btn" aria-label="Close modal">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+            </svg>
+          </button>
+        </div>
+        <form id="create-group-form" class="modal-body diagnostic-form" novalidate>
+          <div class="form-field">
+            <label for="group-name">Study Group Name <span class="required-mark">*</span></label>
+            <input id="group-name" name="groupName" type="text" placeholder="e.g., CS101 Evening Problem Solving" required />
+          </div>
+          <div class="form-field">
+            <label for="group-course">Focus Course <span class="required-mark">*</span></label>
+            <select id="group-course" name="focusCourse" required></select>
+          </div>
+          <div class="form-field">
+            <label for="group-schedule">Weekly Schedule <span class="required-mark">*</span></label>
+            <input id="group-schedule" name="schedule" type="text" placeholder="e.g., Tue & Thu · 7:00 PM" required />
+          </div>
+          <div class="modal-footer modal-footer-inline">
+            <button type="button" id="btn-cancel-group" class="btn btn-secondary">Cancel</button>
+            <button type="submit" class="btn btn-primary">Create Group</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container" class="toast-container" aria-live="polite" aria-atomic="true"></div>
+  </body>
+</html>
